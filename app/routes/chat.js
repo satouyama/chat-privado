@@ -16,13 +16,19 @@ app.get('/chat', function(req ,res){
 app.post('/chat', function(req ,res){
 	var dadosForm = req.body;
 
-	console.log(dadosForm);
 
 
-    res.render("chat", {dadosForm : dadosForm});
+     var list = [];
+		 app.set('list', list);
+     list.push(dadosForm);
+     
+		res.render("chat", {dadosForm : list[0]});
 
-		
 
+		app.get('io').emit(
+			'clienteEspera',
+			{apelido: dadosForm.apelido, mensagem: '<b>Cliente esperando atendimento'}
+		)
 
 
 });

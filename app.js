@@ -14,7 +14,7 @@ var server = app.listen(80, function(){
 
 // função que busca o cep, utilizando a api do viacep
 
-
+var contador = 0;
 
 
 var io = require('socket.io').listen(server);
@@ -26,36 +26,45 @@ app.set('io', io);
 /* criar a conexão por websocket */
 io.on('connection', function(socket){
 
-	console.log('Usuário conectou');
+ console.log('Usuario connectou');
 
-	socket.on('disconnect', function(){
-		console.log('Usuário desconectou');
-	});
+socket.on('disconnect', function(){
+	console.log('Usuario saiu');
+})
 
-	socket.on('msgParaServidor', function(data){
-		  var msgCliente = data.mensagem;
+ socket.on('msgParaServidor', function(data){
+	 console.log(data.mensagem);
+	 socket.emit(
+	 	'msgDoCliente',
+	 	{apelido: data.apelido, mensagem :data.mensagem}
+	 )
+	 socket.broadcast.emit(
+	 'msgDoCliente',
+	 {apelido: data.apelido, mensagem :data.mensagem}
+	)
+ });
 
-		/* dialogo */
-		socket.emit(
-			'msgParaCliente',
-			{apelido: data.apelido, mensagem: data.mensagem}
-		);
-
-		//
-
-
-		/* participantes */
-		if(parseInt(data.apelido_atualizado_nos_clientes) == 0){
-			socket.emit(
-				'participantesParaCliente',
-				{apelido: data.apelido}
+ socket.on('msgTeste', function(data){ 
+		console.log(data.mensagem);
+        socket.emit(
+					'msgDoOperador',
+					{apelido: data.apelido, mensagem :data.mensagem}
 			);
-
 			socket.broadcast.emit(
-				'participantesParaCliente',
-				{apelido: data.apelido}
-			);
-		}
-	});
+				'msgDoOperador',
+				{apelido: data.apelido, mensagem :data.mensagem}
+		);
+ });
+
+
+
+
+
 
 });
+
+
+
+		/* dialogo */
+
+		/* dialogo */
