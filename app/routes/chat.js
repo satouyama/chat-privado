@@ -17,12 +17,7 @@ app.post('/chat', function(req ,res){
 	var dadosForm = req.body;
 
 
-
-     var list = [];
-		 app.set('list', list);
-     list.push(dadosForm);
-     
-		res.render("chat", {dadosForm : list[0]});
+		res.render("chat", {dadosForm : dadosForm});
 
 
 		app.get('io').emit(
