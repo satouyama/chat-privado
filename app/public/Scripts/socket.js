@@ -65,12 +65,6 @@ $(function(){
 		window.scrollTo(0, document.body.scrollHeight);
 	});
 
-	//Receber lista de clientes
-	socket.on('clients', clients =>{
-		console.log(clients)
-		//Lista de clientes aqui
-	})
-
 	//Cliente recebe aviso de novas mensagens
 	socket.on('newmessage', () => {
 		socket.emit('getprivate') //Cliente se comunica com o server, para o server mandar as mensagens dele
