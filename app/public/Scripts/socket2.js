@@ -62,6 +62,19 @@ socket.on('msgDoCliente', function (data) {
 	window.scrollTo(0, document.body.scrollHeight);
 });
 
+socket.on('clienteEspera', function (data) {
+	var html = '';
+
+	html += '<div class="dialogo msgBot">';
+	html += '<span class="imgCliente">' + '</span>';
+	html += '<span class="arrowBot">' + '</span>';
+	html += '<p>' + data.apelido + data.mensagem + '</p>';
+	html += '</div>';
+	$('#dialogos').append(html);
+
+	window.scrollTo(0, document.body.scrollHeight);
+});
+
 //Receber lista de clientes
 socket.on('clients', clients =>{
 	console.log(clients)

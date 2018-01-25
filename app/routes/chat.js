@@ -1,18 +1,5 @@
 module.exports= function(app){
-app.get('/chat', function(req ,res){
-	var dadosForm = req.body;
 
-
-
-
-		app.get('io').emit(
-			'msgParaCliente',
-			{apelido: dadosForm.apelido, mensagem: ' acabou de entrar no chat'}
-		)
-
-		res.render("chat", {dadosForm : dadosForm});
-
-});
 app.post('/chat', function(req ,res){
 	var dadosForm = req.body;
 
@@ -20,7 +7,7 @@ app.post('/chat', function(req ,res){
 		res.render("chat", {dadosForm : dadosForm});
 
 
-		app.get('io').emit(
+		app.get('io').broadcast.emit(
 			'clienteEspera',
 			{apelido: dadosForm.apelido, mensagem: '<b>Cliente esperando atendimento'}
 		)

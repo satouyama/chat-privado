@@ -64,6 +64,7 @@ $(function(){
 
 		window.scrollTo(0, document.body.scrollHeight);
 	});
+	
 
 	//Cliente recebe aviso de novas mensagens
 	socket.on('newmessage', () => {
